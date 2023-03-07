@@ -25,7 +25,6 @@ public class Req {
     }
 
     public static Req of(String content) {
-        /* TODO parse a content */
         String[] array = content.split(System.lineSeparator());
         String[] params = array[0].split("/");
         if (params.length == 5) {
