@@ -15,7 +15,7 @@ public class QueueService implements Service {
             queue.get(req.getSourceName()).add(req.getParam());
         } else {
             text = queue.get(req.getSourceName()).poll();
-            status = "".equals(text) ? status : "200";
+            status = text == null ? "404" : "202";
         }
         return new Resp(text, status);
     }

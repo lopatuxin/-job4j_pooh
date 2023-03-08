@@ -21,9 +21,10 @@ public class TopicService implements Service {
         } else {
             topics.putIfAbsent(req.getSourceName(), new ConcurrentHashMap<>());
             ConcurrentHashMap<String, ConcurrentLinkedQueue<String>> subscribersQueue = topics.get(req.getSourceName());
-            if (subscribersQueue.get(req.getParam()) != null) {
+            ConcurrentLinkedQueue<String> param = subscribersQueue.get(req.getParam());
+            if (param != null) {
                 text = subscribersQueue.get(req.getParam()).poll();
-                status = "".equals(text) ? status : "200";
+                status = text == null ? "404" : "202";
             }
             subscribersQueue.putIfAbsent(req.getParam(), new ConcurrentLinkedQueue<>());
         }
